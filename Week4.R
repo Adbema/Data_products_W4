@@ -15,18 +15,25 @@ library(ggplot2)
 
 ui <- fluidPage(
   titlePanel("Bike-counters in Brussels"),
-  radioButtons("typeofdatatime", "Period:",
+  column(3,radioButtons("typeofdatatime", "Period:",
                list("Hour" = "period_hour",
                     "Day" = "period_day",
-                    "Year" = "period_year")),
+                    "Year" = "period_year"))),
   
-  numericInput("num", 
+  column(3,numericInput("num", 
                h3("Numeric input for radius proportion"), 
-               value = 300),
+               value = 300)),
+  
+  column(5,h3("Help text"),
+         helpText("This map gives the daily/monthly/yearly", 
+                  "number of bkes passing through some bike counters",
+                  "in the city of Brussels.",
+                  "Use the buttons to select the time period you want",
+                  "And the radius proportion to have bigger or smaller circles.")),
   
   
   
-  mainPanel(leafletOutput("mymap",height = 700)),
+  mainPanel(leafletOutput("mymap",width = "145%",height = 700)),
   textOutput("selected_var"))
 
 server <- function(input, output, session) {
